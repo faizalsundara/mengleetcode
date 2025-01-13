@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func RemoveElement(nums []int, val int) int {
 	// var lenArray = len(nums)
@@ -16,6 +19,15 @@ func RemoveElement(nums []int, val int) int {
 	return k
 }
 
+// strings.Index is a built-in function in Go that returns the index of the first occurrence of needle in haystack, or -1 if needle is not found.
+func strStr(haystack string, needle string) int {
+	if needle == "" {
+		return 0
+	}
+	return strings.Index(haystack, needle)
+}
+
 func main() {
-	fmt.Println(RemoveElement([]int{0, 1, 2, 2, 3, 0, 4, 2}, 2))
+	// fmt.Println(strStr("sadbutsad", "sad"))
+	fmt.Println(strStr("hello", "ll"))
 }
