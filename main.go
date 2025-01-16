@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 )
 
@@ -27,7 +28,93 @@ func strStr(haystack string, needle string) int {
 	return strings.Index(haystack, needle)
 }
 
+func threeSum(nums []int) [][]int {
+	result := [][]int{}
+
+	// Sort the array to make it easier to avoid duplicates
+	sort.Ints(nums)
+
+	n := len(nums)
+	for i := 0; i < n-2; i++ {
+		// Skip duplicates for the first element
+		if i > 0 && nums[i] == nums[i-1] {
+			fmt.Println("---", i)
+			fmt.Println("---", nums[i])
+			fmt.Println("---", nums[i-1])
+			continue
+		}
+		left, right := i+1, n-1
+		// -4 -1 -1 0 1 2
+		for left < right {
+			fmt.Println("looping--2", i, nums[i])
+			sum := nums[i] + nums[left] + nums[right]
+			if sum == 0 {
+				result = append(result, []int{nums[i], nums[left], nums[right]})
+
+				// Skip duplicates for the second element
+				for left < right && nums[left] == nums[left+1] {
+					left++
+				}
+				// Skip duplicates for the third element
+				for left < right && nums[right] == nums[right-1] {
+					right--
+				}
+
+				left++
+				right--
+			} else if sum < 0 {
+				left++
+			} else {
+				right--
+			}
+		}
+	}
+
+	return result
+}
+
+func lengthOfLastWord(s string) int {
+	result := 0
+
+	for i := len(s) - 1; i >= 0; i-- {
+		if s[i] == byte(' ') {
+			if result != 0 {
+				break
+			}
+			continue
+		}
+		result++
+
+	}
+	return result
+}
+
+func plusOne(digits []int) []int {
+	n := len(digits)
+	// Traverse the digits array from the end
+	for i := n - 1; i >= 0; i-- {
+		// If the current digit is less than 9, simply increment it
+		if digits[i] < 9 {
+			digits[i]++
+			return digits
+		}
+		// If the current digit is 9, set it to 0
+		fmt.Println("digits--0.5", digits)
+		digits[i] = 0
+		fmt.Println("digits--0", digits)
+	}
+	// If all digits were 9, we need to add an extra 1 at the beginning
+	fmt.Println("digits--1", digits)
+	abc := append([]int{1}, digits...)
+	fmt.Println("digits--2", abc)
+	fmt.Println("digits--3", digits)
+	return abc
+}
+
 func main() {
 	// fmt.Println(strStr("sadbutsad", "sad"))
-	fmt.Println(strStr("hello", "ll"))
+	// fmt.Println(strStr("hello", "ll"))
+	// a := []int{-1, 0, 1, 2, -1, -4}
+	// fmt.Println(plusOne([]int{1, 2, 3}))
+	fmt.Println(plusOne([]int{9, 9}))
 }
