@@ -91,24 +91,17 @@ func lengthOfLastWord(s string) int {
 
 func plusOne(digits []int) []int {
 	n := len(digits)
-	// Traverse the digits array from the end
+
 	for i := n - 1; i >= 0; i-- {
-		// If the current digit is less than 9, simply increment it
-		if digits[i] < 9 {
+		if digits[i] != 9 {
 			digits[i]++
 			return digits
 		}
-		// If the current digit is 9, set it to 0
-		fmt.Println("digits--0.5", digits)
+		// untuk i != 9 set 0
 		digits[i] = 0
-		fmt.Println("digits--0", digits)
 	}
-	// If all digits were 9, we need to add an extra 1 at the beginning
-	fmt.Println("digits--1", digits)
-	abc := append([]int{1}, digits...)
-	fmt.Println("digits--2", abc)
-	fmt.Println("digits--3", digits)
-	return abc
+	// diappend ditambah element 1 di digit depannya
+	return append([]int{1}, digits...)
 }
 
 func main() {
@@ -116,5 +109,5 @@ func main() {
 	// fmt.Println(strStr("hello", "ll"))
 	// a := []int{-1, 0, 1, 2, -1, -4}
 	// fmt.Println(plusOne([]int{1, 2, 3}))
-	fmt.Println(plusOne([]int{9, 9}))
+	fmt.Println(plusOne([]int{9, 2}))
 }
