@@ -104,10 +104,84 @@ func plusOne(digits []int) []int {
 	return append([]int{1}, digits...)
 }
 
+func addBinary(a string, b string) string {
+	// for len(a) < len(b) {
+	// 	a = "0" + a
+	// }
+	// for len(b) < len(a) {
+	// 	b = "0" + b
+	// }
+	lenA := len(a)
+	lenB := len(b)
+
+	// Ensure both strings are of the same length by padding the shorter one with leading zeros
+	for lenA < lenB {
+		fmt.Println("a0", a)
+		a = "0" + a
+		fmt.Println("a1", a)
+		// lenA++
+		lenA = len(a)
+		fmt.Println("a2", a)
+	}
+	for lenB < lenA {
+		fmt.Println("b0", a)
+		b = "0" + b
+		fmt.Println("b1", a)
+		// lenB++
+		fmt.Println("b2", a)
+	}
+
+	carry := 0
+	result := ""
+
+	// Perform addition from the last digit to the first
+	fmt.Println("a10", a)
+	fmt.Println("b10", b)
+	for i := len(a) - 1; i >= 0; i-- {
+		bitA := int(a[i] - '0') // Convert character to integer (0 or 1)
+		bitB := int(b[i] - '0')
+		sum := bitA + bitB + carry
+		result = string((sum%2)+'0') + result // Append the current bit result
+		fmt.Println("--", sum)
+		carry = sum / 2 // Update carry for the next iteration
+		fmt.Println("--Cary", carry)
+	}
+
+	// If there is a carry left, prepend it to the result
+	if carry > 0 {
+		result = "1" + result
+	}
+
+	return result
+}
+
+func customSorting(strArr []string) []string {
+	var result []string
+	var resultGanjil []string
+	var resultGenap []string
+	fmt.Println()
+	for i := 0; i <= len(strArr)-1; i++ {
+		// if i == len(strArr) -1
+		if len(strArr[i])%2 != 0 {
+			fmt.Println(strArr[i])
+			resultGanjil = append(resultGanjil, strArr[i])
+		} else if len(strArr[i])%2 == 0 {
+			fmt.Println(strArr[i])
+			resultGenap = append(resultGenap, strArr[i])
+		}
+	}
+	result = append(result, resultGanjil...)
+	result = append(result, resultGenap...)
+	fmt.Println("---", result)
+	return result
+}
+
 func main() {
 	// fmt.Println(strStr("sadbutsad", "sad"))
 	// fmt.Println(strStr("hello", "ll"))
 	// a := []int{-1, 0, 1, 2, -1, -4}
 	// fmt.Println(plusOne([]int{1, 2, 3}))
-	fmt.Println(plusOne([]int{9, 2}))
+	// fmt.Println(plusOne([]int{9, 2}))
+	fmt.Println(addBinary("1", "111"))
+	// fmt.Println(customSorting([]string{"hayu", "ayu"}))
 }
